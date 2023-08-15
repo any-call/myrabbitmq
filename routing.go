@@ -20,15 +20,19 @@ func NewRouting(connectStr, sName string) (Routing, error) {
 		return nil, err
 	}
 
-	//自定义交换机
-	if err = b.ch.ExchangeDeclare(sName,
-		"direct",
-		true,
-		true,
-		false,
-		false,
-		nil); err != nil {
-		return nil, err
+	if sName != "" {
+		//自定义交换机
+		if err = b.ch.ExchangeDeclare(sName,
+			"direct",
+			true,
+			true,
+			false,
+			false,
+			nil); err != nil {
+			return nil, err
+		}
+	} else {
+		sName = "amq.direct" //default exchanged
 	}
 
 	ret := &routing{base: b, switchName: sName}
