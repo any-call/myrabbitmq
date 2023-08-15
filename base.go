@@ -36,6 +36,7 @@ type base struct {
 	conn          *amqp.Connection
 	ch            *amqp.Channel
 	connectionStr string
+	onclose       func()
 }
 
 func newBase(connectionStr string) (*base, error) {
@@ -57,6 +58,24 @@ func (b *base) initChannel() error {
 	if b.ch, err = b.conn.Channel(); err != nil {
 		return err
 	}
+
+	chCloseErr := make(chan *amqp.Error, 0)
+	b.ch.NotifyClose(chCloseErr)
+	go func(ch chan *amqp.Error) {
+		select {
+		case <-ch:
+			{
+				if b.onclose != nil {
+					for b.ch == nil || b.ch.IsClosed() {
+						b.onclose()
+						fmt.Println("conn is close ,wait 1 sec will re-conn")
+						time.Sleep(time.Second)
+					}
+				}
+			}
+
+		}
+	}(chCloseErr)
 
 	return nil
 }
