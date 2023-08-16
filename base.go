@@ -29,6 +29,14 @@ type (
 		Publish(rKey string, timeout time.Duration, pubInfo amqp.Publishing) error
 		Subscribe(rKey string, f ReceivedMsg) error
 	}
+
+	RpcServer interface {
+		Register(fnKey string, fn any) error
+	}
+
+	RpcClient interface {
+		Send(fnKey string, args ...any) any
+	}
 )
 
 type base struct {
