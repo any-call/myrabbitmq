@@ -25,7 +25,7 @@ func NewRouting(connectStr, sName string) (Routing, error) {
 		if err = b.ch.ExchangeDeclare(sName,
 			"direct",
 			true,
-			true,
+			false, //交换机是共用的，不要删除
 			false,
 			false,
 			nil); err != nil {

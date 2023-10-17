@@ -181,7 +181,7 @@ func Test_pubScribe(t *testing.T) {
 
 func Test_routing(t *testing.T) {
 	var addr string = os.Getenv("RABBITMQ")
-	swhName := ""
+	swhName := "test"
 	s, err := NewRouting(addr, swhName)
 	if err != nil {
 		t.Error("init rabbitmq err: ", err)
