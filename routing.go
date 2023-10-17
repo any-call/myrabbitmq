@@ -93,8 +93,8 @@ func (self *routing) Subscribe(rKey string, f ReceivedMsg) error {
 }
 
 func (self *routing) reSubscribe() {
-	fmt.Println(" conn is close:", self.subKey)
-	if self.subKey != "" && self.subFun != nil {
+	fmt.Println(" conn is close :", self.subKey)
+	if self.subKey != "" && self.subFun != nil { //subscribe
 		if err := self.initChannel(); err != nil {
 			fmt.Println("init channel err:", err)
 			return
@@ -102,6 +102,12 @@ func (self *routing) reSubscribe() {
 
 		if err := self.Subscribe(self.subKey, self.subFun); err != nil {
 			fmt.Println("subscribe fail", err)
+		}
+	} else {
+		//说明是publish
+		if err := self.initChannel(); err != nil {
+			fmt.Println("init channel err 1 :", err)
+			return
 		}
 	}
 }
