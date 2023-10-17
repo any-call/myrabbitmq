@@ -93,7 +93,7 @@ func (self *routing) Subscribe(rKey string, f ReceivedMsg) error {
 }
 
 func (self *routing) reSubscribe() {
-	fmt.Println(" conn is close")
+	fmt.Println(" conn is close:", self.subKey)
 	if self.subKey != "" && self.subFun != nil {
 		if err := self.initChannel(); err != nil {
 			fmt.Println("init channel err:", err)

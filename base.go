@@ -76,7 +76,12 @@ func (b *base) initChannel() error {
 				if b.onclose != nil {
 					for b.ch == nil || b.ch.IsClosed() {
 						b.onclose()
-						fmt.Println("conn is close ,wait 1 sec will re-conn")
+						if b.ch == nil {
+							fmt.Println("conn is close ,wait 1 sec will re-conn: ch is null")
+						} else {
+							fmt.Println("conn is close ,wait 1 sec will re-conn: ", b.ch.IsClosed())
+						}
+
 						time.Sleep(time.Second)
 					}
 				}
