@@ -1,4 +1,4 @@
-module github.com/any-call/myrabbitmq
+module gitee.com/any-call/myrabbitmq
 
 go 1.20
 
