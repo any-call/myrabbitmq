@@ -1,4 +1,4 @@
-# myrabbitmq
+# myrabbitmq  240527
 ### simple 简单模式 --应用产景 聊天
 ![simple.png](png/simple.png)
 消息产生着§将消息放入队列 消息的消费者(consumer) 监听(while) 
